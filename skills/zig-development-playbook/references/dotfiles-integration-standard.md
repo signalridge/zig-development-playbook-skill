@@ -6,11 +6,11 @@ This project manages upstream skills through `.chezmoiexternal.toml.tmpl` with m
 
 Custom/local skills must live under:
 
-- `.agents/skills/local/<skill-name>/`
+- `.agents/skills/ecosystem/signalridge/<skill-name>/`
 
 In this repository layout, that maps to:
 
-- `dot_agents/skills/local/<skill-name>/`
+- `External repo: skills/<skill-name>/ (then synced into .agents/skills/ecosystem/signalridge/<skill-name>/)`
 
 ## Conflict Rule
 
@@ -25,7 +25,7 @@ Reason: these paths are populated by archives and may overwrite/remove unmanaged
 
 ## Acceptance Checklist
 
-1. Skill exists under `dot_agents/skills/local/<skill-name>/`.
+1. Skill exists under `External repo: skills/<skill-name>/ (then synced into .agents/skills/ecosystem/signalridge/<skill-name>/)`.
 2. `.chezmoiexternal.toml.tmpl` has no external target for `.agents/skills/local`.
 3. `quick_validate.py` passes.
 4. `package_skill.py` produces a `.skill` artifact.
