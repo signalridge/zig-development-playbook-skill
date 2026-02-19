@@ -1,0 +1,9 @@
+{
+  "name": "zig-development-playbook",
+  "version": "1.0.0",
+  "description": "Production Zig engineering workflow skill covering build, test, allocator correctness, C interop, and release gates",
+  "author": {
+    "name": "signalridge"
+  },
+  "license": "MIT"
+}
