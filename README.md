@@ -1,15 +1,13 @@
 # zig-development-playbook-skill
 
-A standalone repository for the `zig-development-playbook` skill.
+Standalone repository for the `zig-development-playbook` skill.
 
-This repository follows a plugin-style layout similar to common Claude ecosystem projects.
+## Layout
 
-## Repository Layout
-
-- `plugins/zig-development-playbook/.claude-plugin/plugin.json`
-- `plugins/zig-development-playbook/skills/zig-development-playbook/SKILL.md`
-- `plugins/zig-development-playbook/skills/zig-development-playbook/references/*`
-- `plugins/zig-development-playbook/skills/zig-development-playbook/scripts/*`
+- `.claude-plugin/plugin.json`
+- `skills/zig-development-playbook/SKILL.md`
+- `skills/zig-development-playbook/references/*`
+- `skills/zig-development-playbook/scripts/*`
 - `scripts/install-claude-plugin.sh`
 - `scripts/install-claude-skill.sh`
 - `scripts/install-codex-skill.sh`
@@ -24,7 +22,7 @@ cd zig-development-playbook-skill
 ./scripts/install-claude-plugin.sh
 ```
 
-### Claude skill install (direct)
+### Claude skill install
 
 ```bash
 ./scripts/install-claude-skill.sh
@@ -36,10 +34,8 @@ cd zig-development-playbook-skill
 ./scripts/install-codex-skill.sh
 ```
 
-## Dotfiles / chezmoi integration
+## chezmoi external extraction
 
-If you manage shared skills via `chezmoi external`, extract:
+Extract this path into your destination skill directory:
 
-- `plugins/zig-development-playbook/skills/zig-development-playbook/**`
-
-into your destination skill path (for example `.agents/skills/local/zig-development-playbook`).
+- `skills/zig-development-playbook/**`

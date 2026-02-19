@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SRC_SKILL_DIR="$REPO_ROOT/plugins/zig-development-playbook/skills/zig-development-playbook"
+SRC_SKILL_DIR="$REPO_ROOT/skills/zig-development-playbook"
 CODEX_SKILLS_ROOT="${CODEX_SKILLS_DIR:-$HOME/.codex/skills}"
 DEST_SKILL_DIR="$CODEX_SKILLS_ROOT/local/zig-development-playbook"
 
