@@ -25,7 +25,19 @@ cd zig-development-playbook-skill
 ### Claude skill install
 
 ```bash
-./scripts/install-claude-skill.sh
+./scripts/install-claude-skill.sh --skills-dir "$HOME/.claude/skills"
+```
+
+Parameter priority for skills root:
+
+- `--skills-dir`
+- `CLAUDE_SKILLS_DIR`
+- default: `~/.claude/skills`
+
+Environment variable alternative:
+
+```bash
+CLAUDE_SKILLS_DIR="$HOME/.claude/skills" ./scripts/install-claude-skill.sh
 ```
 
 ### Codex skill install
