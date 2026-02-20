@@ -61,17 +61,13 @@ If `zig` is missing, use `references/official-learning-path.md` for installation
 ## Reference Routing
 
 Use progressive disclosure: load only the reference file needed for the current task.
-If task intent is ambiguous, start with `references/index.md`.
+Use `references/index.md` as the single source of truth for routing, and keep all task-to-reference mapping there.
 
-| Task | Load First | Then Load If Needed |
-| --- | --- | --- |
-| Build errors around `build.zig`/`build.zig.zon` | `references/development-standards.md` | `references/quick-fixes.md` |
-| Compile errors after API migration | `references/quick-fixes.md` | `references/development-standards.md` |
-| Allocator or ownership defects | `references/development-standards.md` | `references/quick-fixes.md` |
-| C interop scaffolding or ABI issues | `references/zig-c-interop-deep-template.md` | `references/development-standards.md` |
-| Toolchain install/setup and docs links | `references/official-learning-path.md` | `references/quick-fixes.md` |
-| Production case-study examples | `references/zig-ecosystem-projects.md` | `references/development-standards.md` |
-| Dotfiles location/sync conflicts | `references/dotfiles-integration-standard.md` | None |
+Quick rule:
+
+- If task intent is ambiguous, start with `references/index.md`.
+- If you are handling compiler/build failures, use `references/quick-fixes.md`.
+- If you are doing final verification/release checks, run `scripts/zig_quality_gate.sh`.
 
 ## Patterns
 

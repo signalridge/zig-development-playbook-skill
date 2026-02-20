@@ -1,6 +1,7 @@
 # Zig Reference Index
 
 Use this page as the default entry point when you are not sure which reference to load first.
+This file is the canonical routing map; keep task-to-reference tables here only.
 
 ## Fast Route by Task
 
