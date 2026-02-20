@@ -58,6 +58,17 @@ zig build test
 
 If `zig` is missing, use `references/official-learning-path.md` for installation routes.
 
+## Reference Routing
+
+Use progressive disclosure: load only the reference file needed for the current task.
+Use `references/index.md` as the single source of truth for routing, and keep all task-to-reference mapping there.
+
+Quick rule:
+
+- If task intent is ambiguous, start with `references/index.md`.
+- If you are handling compiler/build failures, use `references/quick-fixes.md`.
+- If you are doing final verification/release checks, run `scripts/zig_quality_gate.sh`.
+
 ## Patterns
 
 ### Pattern 1: Standard `build.zig` Base
@@ -172,6 +183,26 @@ pub fn main() void {
 For nontrivial interop tasks, validate include paths and target ABI settings through `build.zig`.
 For production-ready scaffolding, use `references/zig-c-interop-deep-template.md`.
 
+## Fast Failure Triage
+
+1. Run a fast compile pass:
+
+```bash
+zig build
+```
+
+2. Match compiler errors against:
+
+- `references/quick-fixes.md`
+
+3. Apply the smallest fix and re-run:
+
+```bash
+zig build test
+```
+
+4. Before final sign-off, run the acceptance gate script.
+
 ## Operational Workflow
 
 1. Discover context.
@@ -198,10 +229,22 @@ Run the bundled quality gate script before claiming completion:
 scripts/zig_quality_gate.sh <project-dir>
 ```
 
+Check Zig toolchain compatibility directly when triaging version mismatches:
+
+```bash
+scripts/check-zig-version.sh
+```
+
 For release/cross-target tasks:
 
 ```bash
 scripts/zig_quality_gate.sh <project-dir> --release-mode ReleaseSafe --targets x86_64-linux-gnu,aarch64-macos
+```
+
+Require strict Zig `0.15.x` compatibility for pinned projects:
+
+```bash
+scripts/zig_quality_gate.sh <project-dir> --strict-0-15
 ```
 
 Dotfiles integration acceptance is defined in `references/dotfiles-integration-standard.md`.
@@ -224,9 +267,12 @@ Dotfiles integration acceptance is defined in `references/dotfiles-integration-s
 
 ## Resources
 
+- Reference entrypoint and task router: `references/index.md`
 - Official learning and docs map: `references/official-learning-path.md`
 - Zig coding/process standards: `references/development-standards.md`
+- High-frequency compile and migration fixes: `references/quick-fixes.md`
 - Zig ecosystem case studies (`Ghostty` etc.): `references/zig-ecosystem-projects.md`
 - Deep C interop templates and checklists: `references/zig-c-interop-deep-template.md`
 - Dotfiles namespace and conflict rules: `references/dotfiles-integration-standard.md`
+- Reusable Zig toolchain compatibility check: `scripts/check-zig-version.sh`
 - Reusable quality gate script: `scripts/zig_quality_gate.sh`

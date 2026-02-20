@@ -34,6 +34,19 @@ cd zig-development-playbook-skill
 ./scripts/install-codex-skill.sh
 ```
 
+## Validation Commands
+
+```bash
+./skills/zig-development-playbook/scripts/check-zig-version.sh
+./skills/zig-development-playbook/scripts/zig_quality_gate.sh <project-dir>
+```
+
+Strictly enforce Zig `0.15.x` (for pinned projects):
+
+```bash
+./skills/zig-development-playbook/scripts/zig_quality_gate.sh <project-dir> --strict-0-15
+```
+
 ## chezmoi external extraction
 
 Extract this path into your destination skill directory:

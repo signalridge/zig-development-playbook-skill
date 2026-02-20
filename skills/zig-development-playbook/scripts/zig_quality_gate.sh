@@ -4,13 +4,15 @@ set -euo pipefail
 usage() {
     cat <<'USAGE'
 Usage:
-  zig_quality_gate.sh [project_dir] [--release-mode <mode>] [--targets <csv>] [--skip-fmt]
+  zig_quality_gate.sh [project_dir] [--release-mode <mode>] [--targets <csv>] [--skip-fmt] [--skip-version-check] [--strict-0-15]
 
 Options:
   project_dir             Project root path. Default: current directory.
   --release-mode <mode>   Debug | ReleaseSafe | ReleaseFast | ReleaseSmall (default: ReleaseSafe)
   --targets <csv>         Optional cross-target list, comma separated.
   --skip-fmt              Skip 'zig fmt --check .'.
+  --skip-version-check    Skip running Zig toolchain compatibility check.
+  --strict-0-15           Require Zig 0.15.x in toolchain compatibility check.
   -h, --help              Show this help.
 USAGE
 }
@@ -19,6 +21,10 @@ project_dir="."
 release_mode="ReleaseSafe"
 targets_csv=""
 skip_fmt=0
+skip_version_check=0
+strict_0_15=0
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+check_version_script="$script_dir/check-zig-version.sh"
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -44,6 +50,14 @@ while [[ $# -gt 0 ]]; do
         ;;
     --skip-fmt)
         skip_fmt=1
+        shift
+        ;;
+    --skip-version-check)
+        skip_version_check=1
+        shift
+        ;;
+    --strict-0-15)
+        strict_0_15=1
         shift
         ;;
     -*)
@@ -88,6 +102,18 @@ run_step() {
     echo "==> $label"
     "$@"
 }
+
+if [[ "$skip_version_check" -eq 0 ]]; then
+    if [[ -x "$check_version_script" ]]; then
+        if [[ "$strict_0_15" -eq 1 ]]; then
+            run_step "Toolchain version check (strict 0.15.x)" "$check_version_script" --strict-0-15
+        else
+            run_step "Toolchain version check" "$check_version_script"
+        fi
+    else
+        run_step "Toolchain version check" zig version
+    fi
+fi
 
 if [[ "$skip_fmt" -eq 0 ]]; then
     run_step "Formatting check" zig fmt --check .
